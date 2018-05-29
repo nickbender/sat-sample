@@ -1,24 +1,30 @@
-# README
+This is a very simple Rails Auth backend.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## You know the drill for install/launch...
 
-Things you may want to cover:
+```bash
+// Assuming ruby 2.4.2
+$ bundle install
+$ rake db:migrate
+$ rake db:seed
+$ rails s
+```
 
-* Ruby version
+## Other notes
 
-* System dependencies
+For the purposes of this code sample, I opted to ignore signups and confirmations
+and the myriad of other user lifecycle use cases.
 
-* Configuration
+The seed file creates 2 users: `standard@example.com` and `premium@example.com`.
 
-* Database creation
+Both users have the password of `password`
 
-* Database initialization
+There are two endpoints:
 
-* How to run the test suite
+`/auth_user` takes a username and password in `POST`, and returns a token. This
+is meant to be used as an endpoint for clients initial login.
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+`/` is a simple endpoint that returns a key of `:premium` assuming an auth
+header with a viable token is present. This could be used either for a front-end
+client to verify an existing token, or (as is the case for this demo) utilized
+to verify user requests sent to other microservices directly.
